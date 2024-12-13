@@ -1,6 +1,4 @@
 // swift-tools-version: 5.10
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-
 import PackageDescription
 
 let package = Package(
@@ -14,15 +12,15 @@ let package = Package(
         ),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
+        // The binary target should be a separate item.
+        .binaryTarget(
+            name: "AmazonIVSChatMessaging",
+            url: "https://ivschat.live-video.net/1.0.0/AmazonIVSChatMessaging.xcframework.zip",
+            checksum: "c92ac3adc061a3fa5558311f8d99fa9b9dba7a00b3482a4f4ac90b2ff4f65b66"
+        ),
         .target(
             name: "IVSBroadcaster",
-             .binaryTarget(
-               name: "AmazonIVSChatMessaging",
-               url: "https://ivschat.live-video.net/1.0.0/AmazonIVSChatMessaging.xcframework.zip",
-               checksum: "c92ac3adc061a3fa5558311f8d99fa9b9dba7a00b3482a4f4ac90b2ff4f65b66"
-            ),
+            dependencies: ["AmazonIVSChatMessaging"] // Ensuring the target depends on the binary target
         ),
         .testTarget(
             name: "IVSBroadcasterTests",
